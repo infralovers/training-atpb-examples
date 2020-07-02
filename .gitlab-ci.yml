@@ -17,7 +17,7 @@ behave:
   artifacts:
     when: always
     reports:
-      junit: reports/TEST-*.xml
+      junit: reports/*.xml
   services:
   - name: selenium/standalone-firefox:3.141.59-20200525
     alias: firefox
@@ -26,6 +26,4 @@ behave:
     DRIVER: headless
     SELENIUM: http://firefox:4444/wd/hub
   script:
-  - behave --junit --junit-directory=reports || echo "failsave"
-  - ls -l
-  - ls -l reports
+  - behave --junit --junit-directory=reports
