@@ -1,9 +1,8 @@
-import sqlite3
-import sys
 from flask import Flask, render_template, request, jsonify
 from models import ArticleModel, Schema
 
 app = Flask(__name__)
+
 
 class Article():
     def __init__(self):
@@ -41,22 +40,23 @@ def health():
 
 @app.route('/api/article', methods=['POST'])
 def article():
-     newPost = Article().create(request.get_json())
-     return jsonify(newPost)
+    new_post = Article().create(request.get_json())
+    return jsonify(new_post)
 
 
 @app.route('/api/article', methods=['GET'])
 def list_articles():
     return jsonify(Article().list())
 
+
 @app.route('/api/article/<article_id>', methods=['GET'])
 def get_article(article_id=None):
-    if(article_id == None):
+    if article_id is None:
         return list_articles()
-    article = Article().get(article_id)
-    if(article == None):
+    current = Article().get(article_id)
+    if current is None:
         return "no article", 404
-    return jsonify(article)
+    return jsonify(current)
 
 
 if __name__ == "__main__":
