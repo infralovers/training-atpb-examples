@@ -15,6 +15,7 @@ pylint:
 
 behave:
   artifacts:
+    when: always
     reports:
       junit: reports/TEST-*.xml
   services:
@@ -25,6 +26,6 @@ behave:
     DRIVER: headless
     SELENIUM: http://firefox:4444/wd/hub
   script:
-  - behave --junit --junit-directory=reports || exit 0
+  - behave --junit --junit-directory=reports || echo "failsave"
   - ls -l
   - ls -l reports
