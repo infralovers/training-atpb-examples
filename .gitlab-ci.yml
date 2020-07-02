@@ -11,9 +11,18 @@ stages:
 pylint:
   stage: linting
   script:
-  - pylint *.py
+  - pylint -d C0114,C0115,C0116,R0903  *.py
 
 behave:
+  artifacts:
+    reports:
+      junit:  reports/TEST-*.xml
+  services:
+  - name: selenium/standalone-firefox:3.141.59-20200525
+    alias: firefox
   stage: behave
+  variables:
+    DRIVER: headless
+    SELENIUM: http://firefox:4444/wd/hub
   script:
-  - echo "hello"
+  - behave --no-color --junit
