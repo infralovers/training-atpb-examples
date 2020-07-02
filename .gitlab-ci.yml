@@ -25,4 +25,6 @@ behave:
     DRIVER: headless
     SELENIUM: http://firefox:4444/wd/hub
   script:
-  - behave --junit --junit-directory=reports
+  - behave --junit --junit-directory=reports || exit 0
+  - ls -l
+  - ls -l reports
