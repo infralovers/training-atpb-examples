@@ -25,4 +25,4 @@ behave:
     DRIVER: headless
     SELENIUM: http://firefox:4444/wd/hub
   script:
-  - behave --no-color --junit --junit-directory=reports
+  - behave --junit --junit-directory=reports

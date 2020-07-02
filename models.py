@@ -12,8 +12,8 @@ class Schema:
           id INTEGER PRIMARY KEY,
           title TEXT,
           content TEXT,
-          _is_deleted boolean
-        );
+          _is_deleted boolean DEFAULT(false)
+        ) ;
         """
         self.conn.execute(query)
 
@@ -21,27 +21,30 @@ class Schema:
 class ArticleModel():
     def __init__(self):
         self.conn = sqlite3.connect("blog.db")
+        self.conn.row_factory = self.dict_factory
+
+    def dict_factory(self, cursor, row):
+        d = {}
+        for idx, col in enumerate(cursor.description):
+            d[col[0]] = row[idx]
+        return d
 
     def create(self, title, content):
-        result = self.conn.execute(
+        cursor = self.conn.cursor()
+        cursor.execute(
             "INSERT INTO article(title, content) VALUES(?, ?)", (title, content))
         self.conn.commit()
-        self.conn.close()
-        return result
+        lastId = cursor.lastrowid
+        return self.get(str(lastId))
 
     def list_items(self):
-        query = self.conn.execute("SELECT title, content from article")
-        result_set = query.fetchall()
-        result = [{column: row[i]
-                   for i, column in enumerate(result_set[0].keys())}
-                  for row in result_set]
+        cursor = self.conn.execute("SELECT * from article")
+        result = cursor.fetchall()
         return result
 
     def get(self, content_id):
-        query = self.conn.execute(
-            "SELECT title,content from article WHERE id=?", content_id)
-        result_set = query.fetchall()
-        result = [{column: row[i]
-                   for i, column in enumerate(result_set[0].keys())}
-                  for row in result_set]
+        cur = self.conn.execute(
+            "SELECT id,title,content from article WHERE id=?", (content_id))
+        result = cur.fetchone()
         return result
+
