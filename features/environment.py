@@ -7,6 +7,36 @@ from selenium.webdriver.chrome.options import Options
 from app import app
 from paths import NavigationHelpers
 from models import Schema
+from selenium.webdriver.common.keys import Keys
+
+SELENIUM = os.getenv('SELENIUM', 'http://localhost:4444/wd/hub')
+DRIVER = os.getenv('DRIVER', 'firefox')
+
+
+def get_driver_capabilities():
+    desired_capabilities = webdriver.DesiredCapabilities.FIREFOX
+    desired_capabilities['loggingPrefs'] = {'browser': 'ALL'}
+    return desired_capabilities
+
+
+def get_firefox_driver():
+    desired_capabilities = get_driver_capabilities()
+    browser = webdriver.Firefox(desired_capabilities=desired_capabilities)
+    return browser
+
+
+def get_headless_driver():
+    desired_capabilities = get_driver_capabilities()
+    browser = webdriver.Remote(
+        command_executor=SELENIUM,
+        desired_capabilities=desired_capabilities)
+    return browser
+
+def get_browser_driver():
+    if DRIVER == "firefox":
+        return get_firefox_driver()
+    return get_headless_driver()
+
 
 def before_all(context):
     Schema()
@@ -17,7 +47,8 @@ def before_all(context):
 
     context.route = NavigationHelpers()
 
-    context.browser = webdriver.Firefox()
+    context.browser = get_browser_driver()
+
     context.browser.set_page_load_timeout(time_to_wait=200)
 
 
