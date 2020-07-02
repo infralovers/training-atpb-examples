@@ -1,0 +1,14 @@
+image: "python:3.8"
+
+before_script:
+  - python --version
+  - pip install -r requirements.txt
+
+  stages:
+  - linting
+  - Test
+#defines the job in Static Analysis
+pylint:
+  stage: linting
+  script:
+  - pylint *.py
