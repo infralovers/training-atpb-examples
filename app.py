@@ -1,20 +1,22 @@
 import sqlite3
+import sys
 from flask import Flask, render_template, request, jsonify
 from models import ArticleModel, Schema
 
 app = Flask(__name__)
 
-
 class Article():
     def __init__(self):
         self.model = ArticleModel()
 
-    def create(self, params):
-        result = self.model.create(params['title'], params['content'])
+    def create(self, json):
+        result = self.model.create(
+            json['title'],
+            json['content'])
         return result
 
-    def get(self, params):
-        result = self.model.get(params['id'])
+    def get(self, article_id):
+        result = self.model.get(article_id)
         return result
 
     def list(self):
@@ -39,25 +41,22 @@ def health():
 
 @app.route('/api/article', methods=['POST'])
 def article():
-    return jsonify(Article().create(request.get_json()))
+     newPost = Article().create(request.get_json())
+     return jsonify(newPost)
 
 
-@app.route('/api/article', methods=["GET"])
-def list_article():
+@app.route('/api/article', methods=['GET'])
+def list_articles():
     return jsonify(Article().list())
 
-
-@app.route('/api/article')
-def get_article():
-    conn = sqlite3.connect("blog.db")
-    cursor = conn.execute("SELECT * FROM article")
-    for row in cursor:
-        print("ID =", row[0])
-        print("Title =", row[1])
-        print("Content =", row[2], "\n")
-    conn.close()
-
-    return ''
+@app.route('/api/article/<article_id>', methods=['GET'])
+def get_article(article_id=None):
+    if(article_id == None):
+        return list_articles()
+    article = Article().get(article_id)
+    if(article == None):
+        return "no article", 404
+    return jsonify(article)
 
 
 if __name__ == "__main__":
