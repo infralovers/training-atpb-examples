@@ -16,7 +16,7 @@ pylint:
 behave:
   artifacts:
     reports:
-      junit:  reports/TEST-*.xml
+      junit: reports/TEST-*.xml
   services:
   - name: selenium/standalone-firefox:3.141.59-20200525
     alias: firefox
