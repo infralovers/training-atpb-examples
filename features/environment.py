@@ -1,58 +1,70 @@
 import os
 import threading
+import tempfile
+import time
 from wsgiref import simple_server
 from wsgiref.simple_server import WSGIRequestHandler
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from app import app
 from paths import NavigationHelpers
-from models import Schema
-from selenium.webdriver.common.keys import Keys
+from app import app, init_db
+from behave import fixture, use_fixture
+import behave_webdriver
 
-SELENIUM = os.getenv('SELENIUM', 'http://localhost:4444/wd/hub')
+SELENIUM = os.getenv('SELENIUM', 'http://127.0.0.1:4444/wd/hub')
 DRIVER = os.getenv('DRIVER', 'firefox')
 
 
-def get_driver_capabilities():
-    desired_capabilities = webdriver.DesiredCapabilities.FIREFOX
-    desired_capabilities['loggingPrefs'] = {'browser': 'ALL'}
-    return desired_capabilities
+def get_chrome_driver():
+    browser = webdriver.Chrome()
+    return browser
 
 
 def get_firefox_driver():
-    desired_capabilities = get_driver_capabilities()
-    browser = webdriver.Firefox(desired_capabilities=desired_capabilities)
+    browser = webdriver.Firefox()
     return browser
 
 
-def get_headless_driver():
-    desired_capabilities = get_driver_capabilities()
-    browser = webdriver.Remote(
-        command_executor=SELENIUM,
-        desired_capabilities=desired_capabilities)
-    return browser
+def get_headless_driver(driver):
+    return behave_webdriver.Chrome.headless()
 
 def get_browser_driver():
     if DRIVER == "firefox":
         return get_firefox_driver()
-    return get_headless_driver()
+    if DRIVER == "chrome":
+        return get_chrome_driver()
+
+    return get_headless_driver(DRIVER)
+
+
+@fixture
+def app_client(context, *args, **kwargs):
+    context.db, app.config['DATABASE'] = tempfile.mkstemp()
+    app.testing = True
+    context.client = app.test_client()
+    with app.app_context():
+        init_db()
+
+    yield context.client
+    # -- CLEANUP:
+    os.close(context.db)
+    os.unlink(app.config['DATABASE'])
 
 
 def before_all(context):
-    Schema()
+
+    use_fixture(app_client, context)
+
     context.server = simple_server.WSGIServer(("", 5000), WSGIRequestHandler)
     context.server.set_app(app)
     context.pa_app = threading.Thread(target=context.server.serve_forever)
     context.pa_app.start()
 
     context.route = NavigationHelpers()
-
     context.browser = get_browser_driver()
-
-    context.browser.set_page_load_timeout(time_to_wait=200)
+    context.browser.set_page_load_timeout(10)
 
 
 def after_all(context):
-    context.browser.quit()
+    context.browser.close()
     context.server.shutdown()
     context.pa_app.join()
