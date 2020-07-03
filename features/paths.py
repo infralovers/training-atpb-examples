@@ -1,14 +1,18 @@
-import re
-
 class NavigationHelpers():
-    def path_to(self, page_name):
-        switch = {
-            "the home page": "http://127.0.0.1:5000/",
-            "the about page": "http://127.0.0.1:5000/about",
-            "api_health_check": "http://127.0.0.1:5000/api/health"
+
+    def __init__(self, base_url="http://127.0.0.1:5000"):
+
+        self.switch = {
+            "the home page": (base_url + "/"),
+            "the about page": base_url + "/about",
+            "api_health_check": base_url + "/api/health",
+            "api_article_create": base_url+"/api/article",
+            "api_article_list": base_url+"/api/article"
         }
-        if switch.get(page_name) != None:
-            return(switch.get(page_name))
-        else:
-            raise Exception("Can't find mapping from \"#{page_name}\" to a path.\n" +
-                    "Now, go and add a mapping in paths.py")
+
+    def path_to(self, page_name):
+        if not self.switch.__contains__(page_name):
+            raise Exception(
+                "Can\'t find mapping from '{page_name}' - add a mapping in paths.py")
+
+        return self.switch.get(page_name)

@@ -19,7 +19,7 @@ behave:
     reports:
       junit: reports/*.xml
   services:
-  - name: selenium/standalone-firefox:3.141.59-20200525
+  - name: selenium/standalone-chrome
     alias: firefox
   stage: behave
   variables:

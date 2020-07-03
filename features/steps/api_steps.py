@@ -13,8 +13,10 @@ def step_impl(context):
 
 @when(u'I create an article with the title "{string}"')
 def step_impl(context, string):
+    route = context.route.path_to("api_article_create")
     context.global_res = requests.post(
-        "http://localhost:5000/api/article", json={"title": string, "content": "My article text"})
+        route, json={"title": string, "content": "My article text"})
+
 
 @then(u'I should receive a "{string}" response')
 def step_impl(context, string):
@@ -22,7 +24,6 @@ def step_impl(context, string):
         status_code = 200
     else:
         status_code = 500
-
     assert context.global_res.status_code == status_code
 
 
@@ -30,7 +31,9 @@ def step_impl(context, string):
 def step_impl(context, string):
     assert string in context.global_res.text
 
+
 @when(u'I list all available articles')
 def step_impl(context):
-    context.global_res = requests.get("http://localhost:5000/api/article")
+    route = context.route.path_to("api_article_list")
+    context.global_res = requests.get(route)
     print(context.global_res.status_code)

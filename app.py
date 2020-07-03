@@ -1,12 +1,17 @@
-from flask import Flask, render_template, request, jsonify
-from models import ArticleModel, Schema
+from flask import (Flask, render_template, request, jsonify, g)
+from flask.cli import with_appcontext
+from models import ArticleModel
+
+DATABASE = 'blog.db'
+DEBUG = True
 
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 
 class Article():
-    def __init__(self):
-        self.model = ArticleModel()
+    def __init__(self, db):
+        self.model = ArticleModel(db)
 
     def create(self, json):
         result = self.model.create(
@@ -22,6 +27,12 @@ class Article():
         result = self.model.list_items()
         return result
 
+def init_db():
+    g.article = Article(app.config['DATABASE'])
+
+@app.before_request
+def before_request():
+    init_db()
 
 @app.route('/')
 def blog():
@@ -40,25 +51,24 @@ def health():
 
 @app.route('/api/article', methods=['POST'])
 def article():
-    new_post = Article().create(request.get_json())
+    new_post = g.article.create(request.get_json())
     return jsonify(new_post)
 
 
 @app.route('/api/article', methods=['GET'])
 def list_articles():
-    return jsonify(Article().list())
+    return jsonify(g.article.list())
 
 
 @app.route('/api/article/<article_id>', methods=['GET'])
 def get_article(article_id=None):
     if article_id is None:
         return list_articles()
-    current = Article().get(article_id)
+    current = g.article.get(article_id)
     if current is None:
         return "no article", 404
     return jsonify(current)
 
 
 if __name__ == "__main__":
-    Schema()
-    app.run(debug=True)
+    app.run(debug=app.config['DEBUG'])
