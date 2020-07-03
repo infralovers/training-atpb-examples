@@ -4,6 +4,7 @@
 def step_impl(context, page_name):
     route = context.route.path_to(page_name)
     context.browser.get(route)
+    context.browser.save_screenshot('test.png')
 
 
 @when(u'I follow "{link_text}"')

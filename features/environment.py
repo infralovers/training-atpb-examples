@@ -5,6 +5,7 @@ from wsgiref import simple_server
 from wsgiref.simple_server import WSGIRequestHandler
 import behave_webdriver
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from behave import fixture, use_fixture
 from paths import NavigationHelpers
 from app import app, init_db
@@ -14,17 +15,27 @@ DRIVER = os.getenv('DRIVER', 'firefox')
 
 
 def get_chrome_driver():
-    browser = webdriver.Chrome()
-    return browser
+    return behave_webdriver.Chrome.headless()
 
 
 def get_firefox_driver():
-    browser = webdriver.Firefox()
+    return behave_webdriver.Firefox.headless()
+
+
+def get_headless_driver():
+
+    chrome_options = Options()
+# argument to switch off suid sandBox and no sandBox in Chrome
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-setuid-sandbox")
+
+    desired_capabilities = chrome_options.to_capabilities()
+
+    browser = behave_webdriver.Remote(
+        command_executor=SELENIUM,
+        desired_capabilities=desired_capabilities)
     return browser
 
-
-def get_headless_driver(driver):
-    return behave_webdriver.Chrome.headless()
 
 def get_browser_driver():
     if DRIVER == "firefox":
@@ -32,7 +43,7 @@ def get_browser_driver():
     if DRIVER == "chrome":
         return get_chrome_driver()
 
-    return get_headless_driver(DRIVER)
+    return get_headless_driver()
 
 
 @fixture
