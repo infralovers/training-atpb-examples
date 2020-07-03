@@ -1,5 +1,4 @@
 from flask import (Flask, render_template, request, jsonify, g)
-from flask.cli import with_appcontext
 from models import ArticleModel
 
 DATABASE = 'blog.db'

@@ -1,14 +1,13 @@
 import os
 import threading
 import tempfile
-import time
 from wsgiref import simple_server
 from wsgiref.simple_server import WSGIRequestHandler
+import behave_webdriver
 from selenium import webdriver
+from behave import fixture, use_fixture
 from paths import NavigationHelpers
 from app import app, init_db
-from behave import fixture, use_fixture
-import behave_webdriver
 
 SELENIUM = os.getenv('SELENIUM', 'http://127.0.0.1:4444/wd/hub')
 DRIVER = os.getenv('DRIVER', 'firefox')
