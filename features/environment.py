@@ -4,7 +4,6 @@ import tempfile
 from wsgiref import simple_server
 from wsgiref.simple_server import WSGIRequestHandler
 import behave_webdriver
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from behave import fixture, use_fixture
 from paths import NavigationHelpers
