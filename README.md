@@ -45,7 +45,7 @@ DRIVER=chrome ./bin/behave
 Headless testing on your local machine just requires docker installed. You can start the container by following commandline
 
 ```bash
-docker run -d -p 4444:4444 --shm-size 2g --name chrome-selenium selenium/standalone-chrome
+docker run -d -p 4444:4444 -e START_XVFB=false --shm-size 2g --name chrome-selenium selenium/standalone-chrome
 ```
 
 The default configuration of chrome headless will point to the default selenium hub api. But this can also be reset by an environment variable _SELENIUM_
