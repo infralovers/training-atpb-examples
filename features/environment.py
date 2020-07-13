@@ -7,7 +7,10 @@ import tempfile
 from wsgiref import simple_server
 from wsgiref.simple_server import WSGIRequestHandler
 import behave_webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FFOptions
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium import webdriver
 from behave import fixture, use_fixture
 from paths import NavigationHelpers
 from app import app, init_db
@@ -41,16 +44,20 @@ def get_headless_driver():
         selenium webdriver
     """
 
-    chrome_options = Options()
-# argument to switch off suid sandBox and no sandBox in Chrome
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-setuid-sandbox")
-
+    chrome_options = ChromeOptions()
+#    chrome_options.add_argument("--headless") # argument to set no sandBox
+    chrome_options.add_argument("--no-sandbox") # argument to set no sandBox
+    chrome_options.add_argument("--disable-setuid-sandbox") # and switch off suid sandBox
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--whitelisted-ips=localhost,127.0.0.1")
+    chrome_options.add_argument("--verbose")
     desired_capabilities = chrome_options.to_capabilities()
 
-    browser = behave_webdriver.Remote(
+    browser = webdriver.Remote(
         command_executor=SELENIUM,
         desired_capabilities=desired_capabilities)
+    browser.implicitly_wait(5)
+
     return browser
 
 
@@ -98,7 +105,7 @@ def before_all(context):
     """
     use_fixture(app_client, context)
 
-    context.server = simple_server.WSGIServer(("", 5000), WSGIRequestHandler)
+    context.server = simple_server.WSGIServer(("0.0.0.0", 5000), WSGIRequestHandler)
     context.server.set_app(app)
     context.pa_app = threading.Thread(target=context.server.serve_forever)
     context.pa_app.start()
