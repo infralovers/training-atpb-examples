@@ -12,11 +12,7 @@ class NavigationHelpers():
             base_url: base url of unit under test
         """
         self.switch = {
-            "the home page": (base_url + "/"),
-            "the about page": base_url + "/about",
-            "api_health_check": base_url + "/api/health",
-            "api_article_create": base_url+"/api/article",
-            "api_article_list": base_url+"/api/article"
+            "the home page": (base_url + "/")
         }
 
     def add_mapping(self, name, uri):
