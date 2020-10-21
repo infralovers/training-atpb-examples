@@ -5,7 +5,7 @@ class NavigationHelpers():
     """
     map behave strings to uri
     """
-    def __init__(self, base_url="http://127.0.0.1:50000"):
+    def __init__(self, base_url="http://127.0.0.1:5000"):
         """
         init helper class
         args:
