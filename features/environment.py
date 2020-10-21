@@ -14,7 +14,7 @@ from selenium import webdriver
 from behave import fixture, use_fixture
 from paths import NavigationHelpers
 from app import app, init_db
-
+import random
 SELENIUM = os.getenv('SELENIUM', 'http://127.0.0.1:4444/wd/hub')
 DRIVER = os.getenv('DRIVER', 'firefox')
 
@@ -105,12 +105,13 @@ def before_all(context):
     """
     use_fixture(app_client, context)
 
-    context.server = simple_server.WSGIServer(("0.0.0.0", 5000), WSGIRequestHandler)
+    context.port = random.randint(5000,5500)
+    context.server = simple_server.WSGIServer(("0.0.0.0", context.port), WSGIRequestHandler)
     context.server.set_app(app)
     context.pa_app = threading.Thread(target=context.server.serve_forever)
     context.pa_app.start()
 
-    context.route = NavigationHelpers()
+    context.route = NavigationHelpers(base_url=("http://127.0.0.1:%d" % context.port))
     context.browser = get_browser_driver()
     context.browser.set_page_load_timeout(10)
 
