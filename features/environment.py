@@ -13,7 +13,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium import webdriver
 from behave import fixture, use_fixture
 from paths import NavigationHelpers
-from app import app, init_db
+from app import app
 
 SELENIUM = os.getenv('SELENIUM', 'http://127.0.0.1:4444/wd/hub')
 DRIVER = os.getenv('DRIVER', 'firefox')
@@ -87,8 +87,8 @@ def app_client(context, *args, **kwargs):
     context.db, app.config['DATABASE'] = tempfile.mkstemp()
     app.testing = True
     context.client = app.test_client()
-    with app.app_context():
-        init_db()
+#    with app.app_context():
+#        init_db()
 
     yield context.client
     # -- CLEANUP:
