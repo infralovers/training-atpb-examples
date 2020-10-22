@@ -27,8 +27,7 @@ def create_article_table(connection):
     CREATE TABLE IF NOT EXISTS "article" (
         id INTEGER PRIMARY KEY,
         title TEXT,
-        content TEXT,
-        _is_deleted boolean DEFAULT(false)
+        content TEXT
     ) ;
     """
     connection.execute(query)
