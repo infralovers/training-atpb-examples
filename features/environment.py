@@ -7,12 +7,14 @@ import threading
 import tempfile
 from wsgiref import simple_server
 from wsgiref.simple_server import WSGIRequestHandler
-import behave_webdriver
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from behave import fixture, use_fixture
 from paths import NavigationHelpers
 from app import app
 from headless_environment import get_headless_driver
 DRIVER = os.getenv('DRIVER', 'firefox')
+
 
 def get_firefox_driver():
     """get behave webdriver for firefox
@@ -20,7 +22,10 @@ def get_firefox_driver():
     Returns:
         selenium webdriver
     """
-    return behave_webdriver.Firefox.headless()
+    options = Options()
+    options.headless = True
+    driver = webdriver.Firefox(options=options)
+    return  driver
 
 
 def get_browser_driver():
