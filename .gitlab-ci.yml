@@ -29,4 +29,4 @@ behave:
   - name: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
     alias: firefox
   script:
-  - behave features/article.feature --junit --junit-directory=reports
+  - behave --junit --junit-directory=reports

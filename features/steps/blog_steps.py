@@ -10,7 +10,10 @@ def step_impl(context, page_name):
 @when(u'I follow "{link_text}"')
 def step_impl(context, link_text):
     link = context.browser.find_element_by_link_text(link_text)
+    assert link != None, "Was not able to find %s" % link_text
+    print("link url: %s" % link.get_attribute("href"))
     link.click()
+    context.browser.get(link.get_attribute("href"))
 
 
 @then(u'I should be on "{page_name}"')
