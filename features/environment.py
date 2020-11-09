@@ -2,19 +2,15 @@
 behave environment configuration
 """
 import os
-import random
 import threading
 import tempfile
-from wsgiref import simple_server
-from wsgiref.simple_server import WSGIRequestHandler
 import behave_webdriver
 from behave import fixture, use_fixture
+from multiprocessing import Process
 from paths import NavigationHelpers
 from app import app
 from headless_environment import get_headless_driver
-
 DRIVER = os.getenv('DRIVER', 'firefox')
-
 
 def get_firefox_driver():
     """get behave webdriver for firefox
@@ -35,6 +31,8 @@ def get_browser_driver():
         return get_headless_driver()
 
     return get_firefox_driver()
+
+
 
 # pylint: disable=W0613
 @fixture
@@ -64,15 +62,13 @@ def before_all(context):
     """
     use_fixture(app_client, context)
 
-    context.port = random.randint(5000, 5500)
-    context.server = simple_server.WSGIServer(("0.0.0.0", context.port), WSGIRequestHandler)
-    context.server.set_app(app)
-    context.pa_app = threading.Thread(target=context.server.serve_forever)
-    context.pa_app.start()
-
+    context.app = app
+    context.port = 5000
     context.route = NavigationHelpers(base_url=("http://127.0.0.1:%d" % context.port))
     context.browser = get_browser_driver()
-    context.browser.set_page_load_timeout(10)
+    context.app.debug= True
+    context.server = Process(target=context.app.run, args=("", context.port))
+    context.server.start()
 
 
 def after_all(context):
@@ -80,5 +76,5 @@ def after_all(context):
     after testing the webdriver and webserver are closed and shutdown
     """
     context.browser.close()
-    context.server.shutdown()
-    context.pa_app.join()
+    context.server.terminate()
+    context.server.join()
