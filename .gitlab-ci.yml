@@ -7,23 +7,26 @@ before_script:
 stages:
   - linting
   - behave
-#defines the job in Static Analysis
+
+  #defines the job in Static Analysis
 pylint:
   stage: linting
+  allow_failure: true
   script:
   - pylint *.py features/*.py
 
+
 behave:
+  stage: behave
+  variables:
+    DRIVER: headless
+    SELENIUM: http://firefox:4444/wd/hub
   artifacts:
     when: always
     reports:
       junit: reports/*.xml
   services:
-  - name: selenium/standalone-chrome
+  - name: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
     alias: firefox
-  stage: behave
-  variables:
-    DRIVER: headless
-    SELENIUM: http://firefox:4444/wd/hub
   script:
-  - behave --junit --junit-directory=reports
+  - behave features/article.feature --junit --junit-directory=reports

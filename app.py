@@ -1,8 +1,8 @@
 """
 python blog base example for automated testing with selenium and behave
 """
-from flask import (Flask, render_template, request, jsonify, g)
-from models import ArticleModel
+from flask import Flask, render_template, request, jsonify, g
+from models import Article
 
 DATABASE = 'blog.db'
 DEBUG = True
@@ -10,49 +10,6 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-
-class Article():
-    """
-    Article class to interact with article model
-    """
-    def __init__(self, db):
-        """
-        create article with model object
-        """
-        self.model = ArticleModel(db)
-
-    def create(self, json):
-        """
-        create a new article based on json data object
-        args:
-            json: json object with 'title' and 'content' objects
-        returns:
-            database representation of new article
-        """
-        result = self.model.create(
-            json['title'],
-            json['content'])
-        return result
-
-    def get(self, article_id):
-        """
-        get an article by id
-        args:
-            article_id: id of article
-        returns:
-            article based on article_id
-        """
-        result = self.model.get(article_id)
-        return result
-
-    def list(self):
-        """
-        list all articles
-        returns:
-            list of articles
-        """
-        result = self.model.list_items()
-        return result
 
 def init_db():
     """
