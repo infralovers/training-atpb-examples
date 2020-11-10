@@ -18,7 +18,7 @@ def init_db():
 
 @app.route('/')
 def blog():
-    return "Hello World!"
+    return "My Blog"
 
 if __name__ == "__main__":
     app.run(debug=app.config['DEBUG'], port=5000)

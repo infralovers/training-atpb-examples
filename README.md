@@ -1,4 +1,15 @@
-# Python Blog Base Example
+# Flask Blogging Application
+
+This is the base for building a blogging application in Flask.
+It is used in a course by Commandemy.
+
+## Setup
+
+pip3 install -r requirements.txt
+
+## Run
+export FLASK_APP=app.py
+flask run
 
 ## Prepare local virtualenv
 
