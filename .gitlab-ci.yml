@@ -6,6 +6,8 @@ before_script:
 
 stages:
   - linting
+  - unit
+  - functional
 
   #defines the job in Static Analysis
 pylint:
