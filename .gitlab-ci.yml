@@ -1,9 +1,5 @@
 image: "python:3.8"
 
-before_script:
-  - python --version
-  - pip install -r requirements.txt
-
 stages:
   - linting
   - behave
@@ -12,9 +8,10 @@ stages:
 pylint:
   stage: linting
   allow_failure: true
+  before_script:
+    - pip3 install -r requirements.txt
   script:
-  - pylint *.py features/*.py
-
+    - pylint *.py features/*.py
 
 behave-article:
   stage: behave
@@ -26,24 +23,25 @@ behave-article:
     reports:
       junit: reports/*.xml
   services:
-  - name: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
-    alias: firefox
+    - name: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
+      alias: firefox
+  allow_failure: true
+  before_script:
+    - pip3 install -r requirements.txt
   script:
-  - behave features/article.feature --junit --junit-directory=reports
-
+    - behave features/article.feature --junit --junit-directory=reports
 
 behave-about:
   stage: behave
-  variables:
-    DRIVER: headless
-    SELENIUM: http://firefox:4444/wd/hub
+  image: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
   artifacts:
     when: always
     reports:
       junit: reports/*.xml
-  services:
-  - name: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
-    alias: firefox
-  allow_failure: true
+  before_script:
+    - sudo apt-get update -q
+    - sudo apt-get install python3-pip -y -q
+    - python3 --version
+    - sudo pip3 install -r requirements.txt
   script:
-  - behave features/about_page.feature --junit --junit-directory=reports
+    - behave features/about_page.feature --junit --junit-directory=reports
