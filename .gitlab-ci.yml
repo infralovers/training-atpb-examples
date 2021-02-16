@@ -4,6 +4,7 @@ stages:
   - linting
   - behave
   - package
+  - artifacts
 
   #defines the job in Static Analysis
 pylint:
@@ -57,6 +58,8 @@ rpm:
   script:
     - VERSION=$(git describe --tags | awk -F'-' '{print $1}')
     - fpm -s dir -t rpm -v "$VERSION" -n python-blog ./=/usr/share/python-blog
+    - FILE=$(ls *.rpm)
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file "$FILE" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/python-blog/$VERSION/$FILE"'
   artifacts:
     expire_in: 5 days
     paths:
@@ -70,7 +73,10 @@ deb:
   script:
     - VERSION=$(git describe --tags | awk -F'-' '{print $1}')
     - fpm -s dir -t deb -v "$VERSION" -n python-blog ./=/usr/share/python-blog
+    - FILE=$(ls *.deb)
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file "$FILE" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/python-blog/$VERSION/$FILE"'
   artifacts:
     expire_in: 5 days
     paths:
       - "*.deb"
+
