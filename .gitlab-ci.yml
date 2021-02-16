@@ -3,6 +3,7 @@ image: "python:3.8"
 stages:
   - linting
   - behave
+  - package
 
   #defines the job in Static Analysis
 pylint:
@@ -45,3 +46,15 @@ behave-about:
     - sudo pip3 install -r requirements.txt
   script:
     - behave features/about_page.feature --junit --junit-directory=reports
+
+wheel:
+  stage: package
+  before_script:
+    - pip3 install -r requirements.txt
+    - pip3 wheel -r requirements.txt
+  script:
+    - pip3 wheel .
+  artifacts:
+    expire_in: 5 days
+    paths:
+      - dist/*.whl3
