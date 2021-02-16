@@ -47,14 +47,30 @@ behave-about:
   script:
     - behave features/about_page.feature --junit --junit-directory=reports
 
-wheel:
+rpm:
+  image: ruby:2
   stage: package
   before_script:
-    - pip3 install -r requirements.txt
-    - pip3 wheel -r requirements.txt
+    - gem install fpm
+    - apt-get update -q
+    - apt-get install -y rpm
   script:
-    - pip3 wheel .
+    - VERSION=$(git describe --tags | awk -F'-' '{print $1}')
+    - fpm -s dir -t rpm -v "$VERSION" -n python-blog ./=/usr/share/python-blog
   artifacts:
     expire_in: 5 days
     paths:
-      - dist/*.whl3
+      - *.rpm
+
+deb:
+  image: ruby:2
+  stage: package
+  before_script:
+    - gem install fpm
+  script:
+    - VERSION=$(git describe --tags | awk -F'-' '{print $1}')
+    - fpm -s dir -t deb -v "$VERSION" -n python-blog ./=/usr/share/python-blog
+  artifacts:
+    expire_in: 5 days
+    paths:
+      - *.deb
