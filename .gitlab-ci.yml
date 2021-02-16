@@ -48,6 +48,7 @@ behave-about:
   script:
     - behave features/about_page.feature --junit --junit-directory=reports
 
+
 rpm:
   image: ruby:2
   stage: package
@@ -56,7 +57,7 @@ rpm:
     - apt-get update -q
     - apt-get install -y rpm
   script:
-    - VERSION=$(git describe --tags | awk -F'-' '{print $1}')
+    - VERSION=$(git describe --tags | awk -F'-' '{print $1}' | awk -F'v' '{print $2}')
     - fpm -s dir -t rpm -v "$VERSION" -n python-blog ./=/usr/share/python-blog
     - FILE=$(ls *.rpm)
     - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file "$FILE" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/python-blog/$VERSION/$FILE"'
@@ -71,7 +72,7 @@ deb:
   before_script:
     - gem install fpm
   script:
-    - VERSION=$(git describe --tags | awk -F'-' '{print $1}')
+    - VERSION=$(git describe --tags | awk -F'-' '{print $1}' | awk -F'v' '{print $2}')
     - fpm -s dir -t deb -v "$VERSION" -n python-blog ./=/usr/share/python-blog
     - FILE=$(ls *.deb)
     - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file "$FILE" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/python-blog/$VERSION/$FILE"'
