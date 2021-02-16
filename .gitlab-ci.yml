@@ -65,6 +65,8 @@ rpm:
     expire_in: 5 days
     paths:
       - "*.rpm"
+  only:
+    - tags
 
 deb:
   image: ruby:2
@@ -80,4 +82,5 @@ deb:
     expire_in: 5 days
     paths:
       - "*.deb"
-
+  only:
+    - tags
