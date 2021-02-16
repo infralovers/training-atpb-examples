@@ -60,7 +60,7 @@ rpm:
   artifacts:
     expire_in: 5 days
     paths:
-      - *.rpm
+      - "*.rpm"
 
 deb:
   image: ruby:2
@@ -73,4 +73,4 @@ deb:
   artifacts:
     expire_in: 5 days
     paths:
-      - *.deb
+      - "*.deb"
