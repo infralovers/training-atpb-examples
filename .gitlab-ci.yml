@@ -25,7 +25,7 @@ behave-article:
     reports:
       junit: reports/*.xml
   services:
-    - name: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
+    - name: selenium/standalone-firefox:4
       alias: firefox
   allow_failure: true
   before_script:
@@ -35,7 +35,7 @@ behave-article:
 
 behave-about:
   stage: behave
-  image: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
+  image: selenium/standalone-firefox:4
   artifacts:
     when: always
     reports:
