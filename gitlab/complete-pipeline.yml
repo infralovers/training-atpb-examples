@@ -1,4 +1,3 @@
-
 image: "python:3.8"
 
 stages:
@@ -24,9 +23,8 @@ behave-article:
     reports:
       junit: reports/*.xml
   services:
-    - name: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
+    - name: infralovers/standalone-firefox-behave:4
       alias: firefox
-  allow_failure: true
   before_script:
     - pip3 install -r requirements.txt
   script:
@@ -34,15 +32,12 @@ behave-article:
 
 behave-about:
   stage: behave
-  image: selenium/standalone-firefox:4.0.0-alpha-7-prerelease-20201009
+  image: infralovers/standalone-firefox-behave:4
   artifacts:
     when: always
     reports:
       junit: reports/*.xml
   before_script:
-    - sudo apt-get update -q
-    - sudo apt-get install python3-pip -y -q
-    - python3 --version
-    - sudo pip3 install -r requirements.txt
+    - pip3 install -r requirements.txt
   script:
     - behave features/about_page.feature --junit --junit-directory=reports
