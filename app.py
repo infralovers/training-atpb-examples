@@ -10,19 +10,15 @@ DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-
-def init_db():
-    """
-    init db based in config 'DATABASE'
-    """
-    g.article = Article(app.config['DATABASE'])
-
 @app.before_request
 def before_request():
     """
     before each request open the database connection
     """
-    init_db()
+    if "article" in g:
+        return
+
+    g.article = Article.init(app.config['DATABASE'])
 
 @app.route('/')
 def blog():

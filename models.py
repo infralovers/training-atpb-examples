@@ -1,69 +1,32 @@
 """
-model representation of databsae object
+Interaction with sqlite database and abstraction into classes/model represantion
+
+Indented usage:
+database_file = 'database.sqlite'
+article = Article.init(database_file)
+all_items = article.list()
+
 """
 import sqlite3
-from flask import g
-
-
-def dict_factory(cursor, row):
-    """
-    map row data to a dictionary
-    args:
-        cursor: database cursor
-        row: current row
-    returns:
-        row representation as dictionary
-    """
-    row_data = {}
-    for idx, col in enumerate(cursor.description):
-        row_data[col[0]] = row[idx]
-    return row_data
-
-def create_article_table(connection):
-    """
-    create an article table in database
-    """
-    query = """
-    CREATE TABLE IF NOT EXISTS "article" (
-        id INTEGER PRIMARY KEY,
-        title TEXT,
-        content TEXT
-    ) ;
-    """
-    connection.execute(query)
-
-def connect_db(database):
-    """
-    connect database based on argument string
-    args:
-        database: file to open as database
-    returns:
-        sqlite database connection
-    """
-    conn = sqlite3.connect(database)
-    conn.row_factory = dict_factory
-    init_db(conn)
-    return conn
-
-def init_db(conn):
-    """
-    init database and commit change
-    args:
-        conn: current connection
-    """
-    create_article_table(conn)
-    conn.commit()
 
 
 class Article():
     """
     Article class to interact with article model
     """
-    def __init__(self, db):
+    @staticmethod
+    def init(database_file):
+        """
+        create aricle class as static initializer
+        """
+        model = ArticleModel(database_file)
+        return Article(model)
+
+    def __init__(self, model):
         """
         create article with model object
         """
-        self.model = ArticleModel(db)
+        self.model = model
 
     def create(self, json):
         """
@@ -102,15 +65,62 @@ class ArticleModel():
     """
     Article Model to interact with database
     """
-    def __init__(self, database):
+    def __init__(self, database_file):
         """
         init model and database
         args:
-            database: database file to open as sqlite
+            database_file: database file to open as sqlite
         """
-        if "db" not in g:
-            g.conn = connect_db(database)
-        self.conn = g.conn
+        self.connect_db(database_file)
+        self.create_article_table()
+
+    def __del__(self):
+        """
+        destructor of the class
+        """
+        self.conn.close()
+
+    def create_article_table(self):
+        """
+        create an article table in database
+        """
+        query = """
+        CREATE TABLE IF NOT EXISTS "article" (
+            id INTEGER PRIMARY KEY,
+            title TEXT,
+            content TEXT
+        ) ;
+        """
+        self.conn.execute(query)
+        self.conn.commit()
+
+
+    def connect_db(self, database_file):
+        """
+        connect database based on argument string
+        args:
+            database_file: file to open as database
+        returns:
+            sqlite database connection
+        """
+        self.conn = sqlite3.connect(database_file)
+        self.conn.row_factory = self.dict_factory
+
+    @staticmethod
+    def dict_factory(cursor, row):
+        """
+        map row data to a dictionary
+        args:
+            cursor: database cursor
+            row: current row
+        returns:
+            row representation as dictionary
+        """
+        row_data = {}
+        for idx, col in enumerate(cursor.description):
+            row_data[col[0]] = row[idx]
+        return row_data
+
 
     def create(self, title, content):
         """
@@ -124,7 +134,7 @@ class ArticleModel():
         cursor = self.conn.cursor()
         cursor.execute(
             "INSERT INTO article(title, content) VALUES(?, ?)", (title, content))
-        g.conn.commit()
+        self.conn.commit()
         last_id = cursor.lastrowid
         return self.get(str(last_id))
 
