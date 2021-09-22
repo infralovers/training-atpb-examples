@@ -8,10 +8,11 @@ import tempfile
 from wsgiref import simple_server
 from selenium import webdriver
 from behave import fixture, use_fixture
-from paths import NavigationHelpers
+from features.paths import NavigationHelpers
 from app import app
 
 DRIVER = os.getenv('DRIVER', 'firefox')
+ISCI = os.getenv("CI", "")
 SELENIUM_API = os.getenv('SELENIUM', 'http://127.0.0.1:4444/wd/hub')
 
 def get_headless_driver():
@@ -33,7 +34,7 @@ def get_firefox_driver():
         selenium webdriver
     """
     options = webdriver.FirefoxOptions()
-    options.headless = True
+    options.headless = ( ISCI == "true")
     return webdriver.Firefox(options=options)
 
 select_browser = {
