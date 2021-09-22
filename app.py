@@ -47,8 +47,8 @@ def health():
     returns:
         http code 200 if ok
     """
-    health = { "status": "Ok"}
-    return jsonify(health), 200
+    health_status = {"status": "Ok"}
+    return jsonify(health_status), 200
 
 
 @app.route('/api/article', methods=['POST'])

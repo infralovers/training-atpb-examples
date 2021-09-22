@@ -34,7 +34,7 @@ def get_firefox_driver():
         selenium webdriver
     """
     options = webdriver.FirefoxOptions()
-    options.headless = ( ISCI == "true")
+    options.headless = (ISCI == "true")
     return webdriver.Firefox(options=options)
 
 select_browser = {
