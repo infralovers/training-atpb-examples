@@ -11,7 +11,7 @@ pylint:
   before_script:
     - pip3 install -r requirements.txt
   script:
-    - pylint *.py features/*.py
+    - pylint *.py Features/*.py
 
 behave-article:
   stage: behave
@@ -28,7 +28,7 @@ behave-article:
   before_script:
     - pip3 install -r requirements.txt
   script:
-    - behave features/article.feature --junit --junit-directory=reports
+    - behave Features/article.feature --junit --junit-directory=reports
 
 behave-about:
   stage: behave
@@ -40,4 +40,4 @@ behave-about:
   before_script:
     - pip3 install -r requirements.txt
   script:
-    - behave features/about_page.feature --junit --junit-directory=reports
+    - behave Features/about_page.feature --junit --junit-directory=reports

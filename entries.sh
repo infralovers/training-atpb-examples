@@ -2,7 +2,7 @@
 
 set -ex
 
-PORT=${PORT:-5000}
+PORT=${PORT:-$(grep "app.run" app.py | sed -r s'/.*port=([0-9]{1,5})\)/\1/')}
 
 curl -X POST \
     --header 'Content-Type: application/json' \
