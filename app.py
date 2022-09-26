@@ -10,4 +10,4 @@ def blog():
     return "My Blog"
 
 if __name__ == "__main__":
-    app.run(debug=app.config['DEBUG'], port=5000)
+    app.run(debug=app.config['DEBUG'], port=51000)
