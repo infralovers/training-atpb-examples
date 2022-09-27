@@ -1,10 +1,8 @@
-image: "python:3.8"
+image: "python:3.10"
 
 stages:
   - linting
   - behave
-  - package
-  - artifacts
 
   #defines the job in Static Analysis
 pylint:
@@ -13,69 +11,38 @@ pylint:
   before_script:
     - pip3 install -r requirements.txt
   script:
-    - pylint *.py features/*.py
+    - pylint *.py
 
 behave-article:
   stage: behave
   variables:
     DRIVER: headless
     SELENIUM: http://firefox:4444/wd/hub
+  services:
+    - name: selenium/standalone-firefox
+      alias: firefox
   artifacts:
     when: always
     reports:
       junit: reports/*.xml
-  services:
-    - name: infralovers/standalone-firefox-behave:4
-      alias: firefox
+    paths:
+      - "*.log"
   before_script:
+    - env
     - pip3 install -r requirements.txt
   script:
     - behave features/article.feature --junit --junit-directory=reports
 
 behave-about:
-  stage: behave
   image: infralovers/standalone-firefox-behave:4
+  stage: behave
   artifacts:
     when: always
     reports:
       junit: reports/*.xml
+    paths:
+      - "*.log"
   before_script:
     - pip3 install -r requirements.txt
   script:
     - behave features/about_page.feature --junit --junit-directory=reports
-
-rpm:
-  image: ruby:2
-  stage: package
-  before_script:
-    - gem install fpm
-    - apt-get update -q
-    - apt-get install -y rpm
-  script:
-    - VERSION=$(git describe --tags | awk -F'-' '{print $1}' | awk -F'v' '{print $2}')
-    - fpm -s dir -t rpm -v "$VERSION" -n python-blog ./=/usr/share/python-blog
-    - FILE=$(ls *.rpm)
-    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file "$FILE" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/python-blog/$VERSION/$FILE"'
-  artifacts:
-    expire_in: 5 days
-    paths:
-      - "*.rpm"
-  only:
-    - tags
-
-deb:
-  image: ruby:2
-  stage: package
-  before_script:
-    - gem install fpm
-  script:
-    - VERSION=$(git describe --tags | awk -F'-' '{print $1}' | awk -F'v' '{print $2}')
-    - fpm -s dir -t deb -v "$VERSION" -n python-blog ./=/usr/share/python-blog
-    - FILE=$(ls *.deb)
-    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file "$FILE" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/python-blog/$VERSION/$FILE"'
-  artifacts:
-    expire_in: 5 days
-    paths:
-      - "*.deb"
-  only:
-    - tags
