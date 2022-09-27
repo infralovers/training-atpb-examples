@@ -1,0 +1,43 @@
+image: "python:3.8"
+
+stages:
+  - linting
+  - behave
+
+  #defines the job in Static Analysis
+pylint:
+  stage: linting
+  allow_failure: true
+  before_script:
+    - pip3 install -r requirements.txt
+  script:
+    - pylint *.py Features/*.py
+
+behave-article:
+  stage: behave
+  variables:
+    DRIVER: headless
+    SELENIUM: http://firefox:4444/wd/hub
+  artifacts:
+    when: always
+    reports:
+      junit: reports/*.xml
+  services:
+    - name: infralovers/standalone-firefox-behave:4
+      alias: firefox
+  before_script:
+    - pip3 install -r requirements.txt
+  script:
+    - behave Features/article.feature --junit --junit-directory=reports
+
+behave-about:
+  stage: behave
+  image: infralovers/standalone-firefox-behave:4
+  artifacts:
+    when: always
+    reports:
+      junit: reports/*.xml
+  before_script:
+    - pip3 install -r requirements.txt
+  script:
+    - behave Features/about_page.feature --junit --junit-directory=reports
