@@ -1,0 +1,112 @@
+1666182570721	geckodriver	INFO	Listening on 127.0.0.1:53463
+1666182571734	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/1c/gjmfcbjs4gs9n4yyg6p3d_zm0000gn/T/rust_mozprofile8Yvwtg"
+2022-10-19 14:29:35.372 plugin-container[42706:1334744] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:35.373 plugin-container[42706:1334744] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-10-19 14:29:35.376 plugin-container[42706:1334744] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:35.376 plugin-container[42706:1334744] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-10-19 14:29:35.376 plugin-container[42706:1334742] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:35.376 plugin-container[42706:1334742] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1666182589153	geckodriver	INFO	Listening on 127.0.0.1:53732
+1666182590165	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/1c/gjmfcbjs4gs9n4yyg6p3d_zm0000gn/T/rust_mozprofileTAmU16"
+1666182590596	Marionette	INFO	Marionette enabled
+1666182590623	Marionette	INFO	Listening on port 53744
+Read port: 53744
+2022-10-19 14:29:50.719 plugin-container[42730:1335588] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:50.719 plugin-container[42730:1335588] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-10-19 14:29:50.722 plugin-container[42730:1335588] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:50.722 plugin-container[42730:1335588] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-10-19 14:29:50.722 plugin-container[42730:1335586] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:50.723 plugin-container[42730:1335586] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1666182590805	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/1c/gjmfcbjs4gs9n4yyg6p3d_zm0000gn/T/rust_mozprofileTAmU16/search.json.mozlz4", (void 0)))
+JavaScript error: resource://gre/modules/URIFixup.jsm, line 307: NS_ERROR_FAILURE: Should pass a non-null uri
+1666182592256	Marionette	INFO	Stopped listening on port 53744
+1666182595428	geckodriver	INFO	Listening on 127.0.0.1:53782
+1666182596438	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/1c/gjmfcbjs4gs9n4yyg6p3d_zm0000gn/T/rust_mozprofileQCDNpS"
+1666182596866	Marionette	INFO	Marionette enabled
+1666182596895	Marionette	INFO	Listening on port 53794
+2022-10-19 14:29:56.916 plugin-container[42758:1336070] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:56.916 plugin-container[42758:1336070] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-10-19 14:29:56.919 plugin-container[42758:1336070] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:56.919 plugin-container[42758:1336070] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-10-19 14:29:56.919 plugin-container[42758:1336099] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 14:29:56.919 plugin-container[42758:1336099] nil host used in call to allowsAnyHTTPSCertificateForHost:
+Read port: 53794
+1666182597148	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/1c/gjmfcbjs4gs9n4yyg6p3d_zm0000gn/T/rust_mozprofileQCDNpS/search.json.mozlz4", (void 0)))
+1666182598616	Marionette	INFO	Stopped listening on port 53794
+1666185122502	geckodriver	INFO	Listening on 127.0.0.1:58336
+1666185123513	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/1c/gjmfcbjs4gs9n4yyg6p3d_zm0000gn/T/rust_mozprofileUCJ5IE"
+1666185123984	Marionette	INFO	Marionette enabled
+1666185124010	Marionette	INFO	Listening on port 58349
+Read port: 58349
+2022-10-19 15:12:04.101 plugin-container[43499:1379029] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 15:12:04.101 plugin-container[43499:1379029] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-10-19 15:12:04.105 plugin-container[43499:1379029] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 15:12:04.105 plugin-container[43499:1379029] nil host used in call to allowsAnyHTTPSCertificateForHost:
+2022-10-19 15:12:04.105 plugin-container[43499:1379027] nil host used in call to allowsSpecificHTTPSCertificateForHost
+2022-10-19 15:12:04.105 plugin-container[43499:1379027] nil host used in call to allowsAnyHTTPSCertificateForHost:
+1666185124194	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/1c/gjmfcbjs4gs9n4yyg6p3d_zm0000gn/T/rust_mozprofileUCJ5IE/search.json.mozlz4", (void 0)))
+1666185125674	Marionette	INFO	Stopped listening on port 58349
+1697634597899	geckodriver	INFO	Listening on 127.0.0.1:55794
+1697634598865	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/6n/l1jwqkw141q14wgn2wxmc85c0000gn/T/rust_mozprofileP2teJv"
+2023-10-18 15:09:59.289 firefox-bin[78145:4413203] WARNING: Secure coding is not enabled for restorable state! Enable secure coding by implementing NSApplicationDelegate.applicationSupportsSecureRestorableState: and returning YES.
+2023-10-18 15:10:03.762 firefox-bin[78145:4413203] Unable to install helper!
+2023-10-18 15:10:03.993 firefox-bin[78169:4413466] WARNING: Secure coding is not enabled for restorable state! Enable secure coding by implementing NSApplicationDelegate.applicationSupportsSecureRestorableState: and returning YES.
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+1697634608233	geckodriver	INFO	Listening on 127.0.0.1:55850
+1697634609238	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/6n/l1jwqkw141q14wgn2wxmc85c0000gn/T/rust_mozprofilexaCGFo"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+2023-10-18 15:10:09.432 firefox-bin[78201:4413924] WARNING: Secure coding is not enabled for restorable state! Enable secure coding by implementing NSApplicationDelegate.applicationSupportsSecureRestorableState: and returning YES.
+1697634609556	Marionette	INFO	Marionette enabled
+1697634609756	Marionette	INFO	Listening on port 55863
+Read port: 55863
+1697634609778	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+1697634611869	Marionette	INFO	Stopped listening on port 55863
+1697634622622	geckodriver	INFO	Listening on 127.0.0.1:55912
+1697634623633	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/6n/l1jwqkw141q14wgn2wxmc85c0000gn/T/rust_mozprofileYgpfuO"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+2023-10-18 15:10:23.834 firefox-bin[78244:4414710] WARNING: Secure coding is not enabled for restorable state! Enable secure coding by implementing NSApplicationDelegate.applicationSupportsSecureRestorableState: and returning YES.
+1697634623955	Marionette	INFO	Marionette enabled
+1697634624056	Marionette	INFO	Listening on port 55924
+Read port: 55924
+1697634624179	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+1697634625654	Marionette	INFO	Stopped listening on port 55924
+1697634817637	geckodriver	INFO	Listening on 127.0.0.1:56176
+1697634818651	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/6n/l1jwqkw141q14wgn2wxmc85c0000gn/T/rust_mozprofileyLn8hw"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+2023-10-18 15:13:38.850 firefox-bin[78395:4417207] WARNING: Secure coding is not enabled for restorable state! Enable secure coding by implementing NSApplicationDelegate.applicationSupportsSecureRestorableState: and returning YES.
+1697634818974	Marionette	INFO	Marionette enabled
+1697634819179	Marionette	INFO	Listening on port 56189
+Read port: 56189
+1697634819299	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+1697634825642	Marionette	INFO	Stopped listening on port 56189
+1697634908973	geckodriver	INFO	Listening on 127.0.0.1:56347
+1697634908979	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/6n/l1jwqkw141q14wgn2wxmc85c0000gn/T/rust_mozprofileD5VA2g"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+2023-10-18 15:15:09.163 firefox-bin[78505:4418750] WARNING: Secure coding is not enabled for restorable state! Enable secure coding by implementing NSApplicationDelegate.applicationSupportsSecureRestorableState: and returning YES.
+1697634909278	Marionette	INFO	Marionette enabled
+1697634909375	Marionette	INFO	Listening on port 56357
+Read port: 56357
+1697634909498	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+1697634910930	Marionette	INFO	Stopped listening on port 56357
+1697634942344	geckodriver	INFO	Listening on 127.0.0.1:56423
+1697634943358	mozrunner::runner	INFO	Running command: MOZ_CRASHREPORTER="1" MOZ_CRASHREPORTER_NO_REPORT="1" MOZ_CRASHREPORTER_SHUTDOWN="1" MOZ_NO_REMOTE="1" "/App ... "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/6n/l1jwqkw141q14wgn2wxmc85c0000gn/T/rust_mozprofilekPmHhW"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+2023-10-18 15:15:43.543 firefox-bin[78557:4419786] WARNING: Secure coding is not enabled for restorable state! Enable secure coding by implementing NSApplicationDelegate.applicationSupportsSecureRestorableState: and returning YES.
+1697634943665	Marionette	INFO	Marionette enabled
+1697634943768	Marionette	INFO	Listening on port 56435
+Read port: 56435
+1697634943895	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+UNSUPPORTED (log once): POSSIBLE ISSUE: unit 1 GLD_TEXTURE_INDEX_2D is unloadable and bound to sampler type (Float) - using zero texture because texture unloadable
+1697634950349	Marionette	INFO	Stopped listening on port 56435

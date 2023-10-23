@@ -29,7 +29,6 @@ def blog():
     """
     return render_template('home.html')
 
-
 @app.route('/about')
 def about():
     """
@@ -38,7 +37,6 @@ def about():
         rendered about.html
     """
     return render_template('about.html')
-
 
 @app.route('/api/health')
 def health():
@@ -58,7 +56,6 @@ def article():
     """
     new_post = g.article.create(request.get_json())
     return jsonify(new_post)
-
 
 @app.route('/api/article', methods=['GET'])
 def list_articles():

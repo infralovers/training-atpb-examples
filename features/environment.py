@@ -3,6 +3,7 @@ behave environment configuration
 """
 import os
 import random
+import time
 import threading
 import tempfile
 from wsgiref import simple_server
@@ -82,6 +83,8 @@ def before_all(context):
     """
     use_fixture(fixture_database_setup, context)
 
+    context.browser = get_browser_driver()
+
     context.port = random.randint(5000, 5500)
     context.server = simple_server.WSGIServer(("0.0.0.0", context.port), \
                                                simple_server.WSGIRequestHandler)
@@ -89,9 +92,9 @@ def before_all(context):
     context.pa_app = threading.Thread(target=context.server.serve_forever)
     context.pa_app.start()
 
-    context.route = NavigationHelpers(base_url=("http://127.0.0.1:%d" % context.port))
-    context.browser = get_browser_driver()
+    context.route = NavigationHelpers(base_url=f"http://127.0.0.1:{context.port}")
 
+    print(f"Test server start http://127.0.0.1:{context.port}")
 
 def after_all(context):
     """
