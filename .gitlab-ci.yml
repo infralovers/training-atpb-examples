@@ -1,17 +1,48 @@
-image: "python:3.8"
-
-before_script:
-  - python --version
-  - pip install -r requirements.txt
+image: "python:3.10"
 
 stages:
   - linting
-  - unit
-  - functional
+  - behave
 
   #defines the job in Static Analysis
 pylint:
   stage: linting
   allow_failure: true
+  before_script:
+    - pip3 install -r requirements.txt
   script:
-  - pylint *.py features/*.py
+    - pylint *.py
+
+behave-article:
+  stage: behave
+  variables:
+    DRIVER: headless
+    SELENIUM: http://firefox:4444/wd/hub
+  services:
+    - name: selenium/standalone-firefox
+      alias: firefox
+  artifacts:
+    when: always
+    reports:
+      junit: reports/*.xml
+    paths:
+      - "*.log"
+  before_script:
+    - env
+    - pip3 install -r requirements.txt
+  script:
+    - behave features/article.feature --junit --junit-directory=reports
+
+behave-about:
+  image: infralovers/standalone-firefox-behave:4
+  stage: behave
+  artifacts:
+    when: always
+    reports:
+      junit: reports/*.xml
+    paths:
+      - "*.log"
+  before_script:
+    - pip3 install -r requirements.txt
+  script:
+    - behave features/about_page.feature --junit --junit-directory=reports
